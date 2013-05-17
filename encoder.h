@@ -2,6 +2,7 @@
 #ifndef ENCODER_H
 #define	ENCODER_H
 
+#include "QuadraticProbing.h"
 
 class Encoder
 {

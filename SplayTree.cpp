@@ -77,6 +77,11 @@
                     root = newNode;
                 }
                 else
+                if( root->element == x)
+                {
+                    root->count++;
+                }
+                else
                     return;
             }
             newNode = NULL;   // So next insert will call new
