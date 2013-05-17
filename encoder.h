@@ -3,6 +3,8 @@
 #define	ENCODER_H
 
 #include "QuadraticProbing.h"
+#include "BinaryHeap.h"
+#include <utility>
 
 class Encoder
 {
