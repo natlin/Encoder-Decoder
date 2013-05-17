@@ -1,4 +1,4 @@
-// Author: Sean Davis
+// Authors Nathan Lin, Vijay Kumar
 #ifndef ENCODER_H
 #define	ENCODER_H
 
