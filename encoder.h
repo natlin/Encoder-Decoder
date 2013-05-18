@@ -7,6 +7,7 @@
 //#include <utility>
 //#include "BinaryTree.h"
 #include "LeftistHeap.h"
+//#include "RandomTree.h"
 
 class Encoder
 {
@@ -15,6 +16,7 @@ public:
   void encode(const unsigned char *message, const int size, 
     unsigned char *encodedMessage, int *encodedSize);
   ~Encoder();
+  void printTree(TreeNode *t);
 private:
 
 };

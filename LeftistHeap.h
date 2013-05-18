@@ -1,6 +1,7 @@
 #ifndef LEFTIST_HEAP_H
 #define LEFTIST_HEAP_H
 
+#include "RandomTree.h"
 #include "dsexceptions.h"
 #include <iostream>
 using namespace std;
@@ -47,17 +48,17 @@ class LeftistHeap
         return root -> element;
     }
 
-    const unsigned char & findMin(char b) const
+    TreeNode* & findMin() const
     {
         if(isEmpty() )
             throw Underflow( );
-        return root -> character;
+        return root -> node;
     }
 
     /**
      * Inserts x; duplicates allowed.
      */
-    void insert( const Comparable & x , unsigned char element)
+    void insert( const Comparable & x , TreeNode*  element)
       { root = merge( new LeftistNode( x, element ), root ); }
 
     /**
@@ -116,18 +117,29 @@ class LeftistHeap
         return *this;
     }
 
+
+    void printTree( ) const
+    {
+        if( isEmpty( ) )
+            cout << "Empty tree" << endl;
+        else
+            printTree( root );
+    }
+
+
+
   private:
     struct LeftistNode
     {
         Comparable   element;
-        unsigned char character;
+        TreeNode* node;
         LeftistNode *left;
         LeftistNode *right;
         int          npl;
 
-        LeftistNode( const Comparable & theElement, unsigned char element, LeftistNode *lt = NULL,
+        LeftistNode( const Comparable & theElement, TreeNode* element, LeftistNode *lt = NULL,
                         LeftistNode *rt = NULL, int np = 0 )
-          : element( theElement ), character(element), left( lt ), right( rt ), npl( np ) { }
+          : element( theElement ), node(element), left( lt ), right( rt ), npl( np ) { }
     };
 
     LeftistNode *root;
@@ -201,8 +213,19 @@ class LeftistHeap
         if( t == NULL )
             return NULL;
         else
-            return new LeftistNode( t->element, t->character, clone( t->left ), clone( t->right ), t->npl );
+            return new LeftistNode( t->element, t->node, clone( t->left ), clone( t->right ), t->npl );
     }
+
+
+    //void printTree( LeftistNode *t ) const
+    //{
+        //if( t && t != t->left )
+        //{
+            //printTree( t->left );
+            //cout << t->character << "," << t->element << endl;
+            //printTree( t->right );
+        //}
+    //}
 };
 
 #endif
