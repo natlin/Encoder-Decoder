@@ -13,7 +13,7 @@ Encoder::~Encoder()
 {
 } // ~Encoder()
 
-void Encoder::printTree(TreeNode *t)
+/*void Encoder::printTree(TreeNode *t)
 {
   if(t && t != t->left)
   {
@@ -21,7 +21,7 @@ void Encoder::printTree(TreeNode *t)
     cout << t->element << "," << t->count << endl;
     printTree(t->right);
   }//if
-}//printTree
+}//printTree*/
 
 
 void Encoder::encode(const unsigned char *message, const int size, 
@@ -84,7 +84,7 @@ void Encoder::encode(const unsigned char *message, const int size,
     {
       //static TreeNode *newRoot = new TreeNode;
       //newRoot = root;
-      printTree(root);
+      //printTree(root);
       heap.insert(root->count, root);
       break;
     }//if
@@ -113,6 +113,6 @@ void Encoder::encode(const unsigned char *message, const int size,
       //test = 0;
     //}//else
   }//while
-  //heap.printTree();
+  heap.printTree();
   //tree.printTree();
 }  // encode()

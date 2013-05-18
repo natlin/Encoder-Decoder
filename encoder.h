@@ -16,7 +16,7 @@ public:
   void encode(const unsigned char *message, const int size, 
     unsigned char *encodedMessage, int *encodedSize);
   ~Encoder();
-  void printTree(TreeNode *t);
+  //void printTree(TreeNode *t);
 private:
 
 };

@@ -4,6 +4,8 @@
 #include "RandomTree.h"
 #include "dsexceptions.h"
 #include <iostream>
+#include <cstring>
+
 using namespace std;
 
 // Leftist heap class
@@ -123,7 +125,10 @@ class LeftistHeap
         if( isEmpty( ) )
             cout << "Empty tree" << endl;
         else
-            printTree( root );
+        {
+            TreeNode *getter = root->node;
+            printTree( root->node, getter->code );
+        }//else
     }
 
 
@@ -217,15 +222,27 @@ class LeftistHeap
     }
 
 
-    //void printTree( LeftistNode *t ) const
-    //{
-        //if( t && t != t->left )
-        //{
-            //printTree( t->left );
-            //cout << t->character << "," << t->element << endl;
-            //printTree( t->right );
-        //}
-    //}
+    void printTree( TreeNode *t, char str[] ) const
+    {
+        if(t)
+        {
+          if(!t->left && !t->right)
+            cout << t->element << "," << t->count << "," << t->code << endl;
+          else
+          {
+            t->left->code = strcat(str, "0");
+            str[strlen(str) - 1] = '\0';
+            t->right->code = strcat(str, "1");
+            str[strlen(str) - 1] = '\0';
+
+            printTree(t->left, strcat(str, "0"));
+            str[strlen(str) - 1] = '\0';
+            printTree(t->right, strcat(str, "1"));
+            str[strlen(str) - 1] = '\0';
+            
+          }//else
+        }
+    }
 };
 
 #endif
