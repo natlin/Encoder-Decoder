@@ -232,10 +232,9 @@ class LeftistHeap
           {
             t->left->code = strcat(str, "0");
             str[strlen(str) - 1] = '\0';
-            t->right->code = strcat(str, "1");
-            str[strlen(str) - 1] = '\0';
-
             printTree(t->left, strcat(str, "0"));
+            str[strlen(str) - 1] = '\0';
+            t->right->code = strcat(str, "1");
             str[strlen(str) - 1] = '\0';
             printTree(t->right, strcat(str, "1"));
             str[strlen(str) - 1] = '\0';
