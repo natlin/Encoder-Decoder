@@ -35,30 +35,38 @@ void Encoder::encode(const unsigned char *message, const int size,
       //pair<int, unsigned char> p1(hashTable.array[i].count, 
         //hashTable.array[i].element);
       //heap.insert(p1);
+      heap.insert(hashTable.array[i].count, hashTable.array[i].element);
     }//if
   }//for
   int test = 0;
   LeftistHeap<int> prev;
   LeftistHeap<int> prev2;
-  int a;
+  int a = 0;
   char b;
   //pair <int unsigned char> prev(0, 0);
-  while(heap.findMin(b) != prev.findMin(b))
+  while(1)
+  //for(int i = 0; i < 5; i++)
   {
     if(test == 0)
     {
+      prev.makeEmpty();
       prev.insert(heap.findMin(a), heap.findMin(b));
       heap.deleteMin();
       test = 1;
     }//if
     else
     {
+      b = heap.findMin(b);
+      prev2.makeEmpty(); 
       prev2.insert(heap.findMin(a), heap.findMin(b));
       heap.deleteMin();
       prev.merge(prev2);
       heap.merge(prev);
+      if(b == heap.findMin(b))
+        break;
+      //if(prev.findMin(b) == heap.findMin(b))
+        //break;
       test = 0;
-      prev.makeEmpty(); 
     }//else
   }//while
   //tree.printTree();
