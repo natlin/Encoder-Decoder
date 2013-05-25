@@ -228,12 +228,11 @@ class LeftistHeap
         {
           if(!t->left && !t->right)
           {
-            cout << t->element << "," << t->count << "," << mask << "," << size << endl;
-            codes[t->element][0] = mask;
+            //cout << t->element << "," << t->count << "," << mask << "," << size << endl;
             length[t->element] = size;
             for(int i = 0; i < 8; i++)
             {
-              
+              codes[t->element][0] = (mask >> i);
             }//for
           }//if
           else

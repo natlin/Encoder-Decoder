@@ -115,8 +115,21 @@ void Encoder::encode(const unsigned char *message, const int size,
   }//while
   heap.printTree(codes, length);
   //tree.printTree();
-  //for(int i = 0; i < size; i++)
-  //{
-    //encodedMessage[index] |= ((char*) &codes[message[i]][pos])[3];
-  //}//for
+  int index = 0;
+  int pos = 0;
+  for(int i = 0; i < size; i++)
+  {
+      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[3];
+      index++;
+      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[2];
+      index++;
+      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[1];
+      index++;
+      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[0];
+      //cout << encodedMessage[index] << endl;
+      index = index - 3 + ((pos + length[message[i]]) / 8);
+      pos = (pos + length[message[i]]) % 8;
+  }//for
+
+  *encodedSize = index + 1;// sizeof(unsigned char);
 }  // encode()
