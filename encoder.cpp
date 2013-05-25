@@ -113,6 +113,10 @@ void Encoder::encode(const unsigned char *message, const int size,
       //test = 0;
     //}//else
   }//while
-  heap.printTree();
+  heap.printTree(codes, length);
   //tree.printTree();
+  //for(int i = 0; i < size; i++)
+  //{
+    //encodedMessage[index] |= ((char*) &codes[message[i]][pos])[3];
+  //}//for
 }  // encode()

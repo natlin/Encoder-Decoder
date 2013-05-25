@@ -18,7 +18,8 @@ public:
   ~Encoder();
   //void printTree(TreeNode *t);
 private:
-
+  int codes[256][8];
+  int length[256];
 };
 
 #endif	/* ENCODER_H */

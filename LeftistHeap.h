@@ -120,14 +120,14 @@ class LeftistHeap
     }
 
 
-    void printTree( ) const
+    void printTree( int codes[][8] , int length[256] ) const
     {
         if( isEmpty( ) )
             cout << "Empty tree" << endl;
         else
         {
-            TreeNode *getter = root->node;
-            printTree( root->node, getter->code );
+            //TreeNode *getter = root->node; 
+            printTree( root->node, 0/*getter->code*/, codes , length, 0);
         }//else
     }
 
@@ -222,22 +222,33 @@ class LeftistHeap
     }
 
 
-    void printTree( TreeNode *t, char str[] ) const
+    void printTree( TreeNode *t, int mask/*char str[]*/, int codes[][8], int length[256],int size) const
     {
         if(t)
         {
           if(!t->left && !t->right)
-            cout << t->element << "," << t->count << "," << t->code << endl;
+          {
+            cout << t->element << "," << t->count << "," << mask << "," << size << endl;
+            codes[t->element][0] = mask;
+            length[t->element] = size;
+            for(int i = 0; i < 8; i++)
+            {
+              
+            }//for
+          }//if
           else
           {
-            t->left->code = strcat(str, "0");
-            str[strlen(str) - 1] = '\0';
-            printTree(t->left, strcat(str, "0"));
-            str[strlen(str) - 1] = '\0';
-            t->right->code = strcat(str, "1");
-            str[strlen(str) - 1] = '\0';
-            printTree(t->right, strcat(str, "1"));
-            str[strlen(str) - 1] = '\0';
+            size++;
+            //t->left->code = strcat(str, "0");
+            //str[strlen(str) - 1] = '\0';
+            printTree(t->left, mask, codes, length, size);
+            //str[strlen(str) - 1] = '\0';
+            //t->right->code = strcat(str, "1");
+            //str[strlen(str) - 1] = '\0';
+            int masque = 0x80;
+            mask |= (masque << size);
+            printTree(t->right, mask, codes, length, size);
+            //str[strlen(str) - 1] = '\0';
             
           }//else
         }
