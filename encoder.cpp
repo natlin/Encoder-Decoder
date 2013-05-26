@@ -117,17 +117,30 @@ void Encoder::encode(const unsigned char *message, const int size,
   //tree.printTree();
   int index = 0;
   int pos = 0;
+
+  //char codelen = length[34];
+  //cout << (int) codelen << endl;
+
+  for(int i = 0; i < 256; i++)
+  {
+    encodedMessage[index] = length[i];
+    //cout << i << " " << (int) encodedMessage[index] << " " <<length[i] << ". ";
+    index++;
+    encodedMessage[index] |= ((char*) &codes[i][0])[3];
+    encodedMessage[index + 1] |= ((char*) &codes[i][0])[2];
+    encodedMessage[index + 2] |= ((char*) &codes[i][0])[1];
+    encodedMessage[index + 3] |= ((char*) &codes[i][0])[0];
+    index += length[i] / 8;
+  }//for
+
   for(int i = 0; i < size; i++)
   {
       encodedMessage[index] |= ((char*) &codes[message[i]][pos])[3];
-      index++;
-      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[2];
-      index++;
-      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[1];
-      index++;
-      encodedMessage[index] |= ((char*) &codes[message[i]][pos])[0];
+      encodedMessage[index + 1] |= ((char*) &codes[message[i]][pos])[2];
+      encodedMessage[index + 2] |= ((char*) &codes[message[i]][pos])[1];
+      encodedMessage[index + 3] |= ((char*) &codes[message[i]][pos])[0];
       //cout << encodedMessage[index] << endl;
-      index = index - 3 + ((pos + length[message[i]]) / 8);
+      index += (pos + length[message[i]]) / 8;
       pos = (pos + length[message[i]]) % 8;
   }//for
 
