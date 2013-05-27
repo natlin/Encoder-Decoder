@@ -130,7 +130,11 @@ void Encoder::encode(const unsigned char *message, const int size,
     encodedMessage[index + 1] |= ((char*) &codes[i][0])[2];
     encodedMessage[index + 2] |= ((char*) &codes[i][0])[1];
     encodedMessage[index + 3] |= ((char*) &codes[i][0])[0];
-    index += length[i] / 8;
+    index = index + 4;
+    /*if(length[i] % 8 == 0)
+      index += 1 + (length[i] / 8);
+    else
+      index += length[i] / 8;*/
   }//for
 
   for(int i = 0; i < size; i++)

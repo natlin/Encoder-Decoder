@@ -13,7 +13,9 @@ struct TreeNode
   TreeNode *left;
   TreeNode *right;
   char *code;
-  TreeNode() { code = new char[256];};
+  TreeNode() { code = new char[256];
+  code[0] = '\0';
+  parent = left = right = 0;};
   //TreeNode( ) : count(0), parent(NULL), left( NULL), right( NULL) {}
   //TreeNode( const Comparable &theElement, const int cnt, TreeNode *lt,
     //TreeNode *rt) : element(theElement), count(cnt), parent(NULL), 
