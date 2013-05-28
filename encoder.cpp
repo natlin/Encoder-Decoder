@@ -3,6 +3,7 @@
 #include "encoder.h"
 //#include "SplayTree.h"
 #include "iostream"
+#include <cstring>
 
 Encoder::Encoder()
 {
@@ -120,17 +121,50 @@ void Encoder::encode(const unsigned char *message, const int size,
 
   //char codelen = length[34];
   //cout << (int) codelen << endl;
+  /*unsigned char tempcode, getBit;
+  int lengthth = 0;
+  char str[100] = {'\0'};
+  int done = 0;*/
 
   for(int i = 0; i < 256; i++)
   {
     encodedMessage[index] = length[i];
     //cout << i << " " << (int) encodedMessage[index] << " " <<length[i] << ". ";
-    index++;
-    encodedMessage[index] |= ((char*) &codes[i][0])[3];
-    encodedMessage[index + 1] |= ((char*) &codes[i][0])[2];
-    encodedMessage[index + 2] |= ((char*) &codes[i][0])[1];
-    encodedMessage[index + 3] |= ((char*) &codes[i][0])[0];
-    index = index + 4;
+    //index++;
+    //lengthth = length[i];
+    encodedMessage[index + 1] |= ((char*) &codes[i][0])[3];
+    encodedMessage[index + 2] |= ((char*) &codes[i][0])[2];
+    encodedMessage[index + 3] |= ((char*) &codes[i][0])[1];
+    encodedMessage[index + 4] |= ((char*) &codes[i][0])[0];
+    /*for(int k = 1; k < 5; k++)
+    {
+      unsigned char mask = 1 << 7;
+      tempcode = (encodedMessage[index + k]);
+      for(int j = 0; j < 8; j++)
+      {
+        if (length<= 0)
+        {
+          cout << (char) i << " " << codes[i][0] << " " << str << endl;
+          //cout << element << " " << str << endl;
+          str[0] = '\0';
+          done = 1;
+          break;
+        }//if
+        getBit = tempcode & mask;
+        mask >>= 1;
+        if(getBit == 0)
+          strcat(str, "0");
+        else
+          strcat(str, "1");
+        lengthth--;
+      }//for j
+    if(done)
+    {
+      done = 0;
+      break;
+    }//if
+    }//for k*/
+    index = index + 5;
     /*if(length[i] % 8 == 0)
       index += 1 + (length[i] / 8);
     else
@@ -147,6 +181,7 @@ void Encoder::encode(const unsigned char *message, const int size,
       index += (pos + length[message[i]]) / 8;
       pos = (pos + length[message[i]]) % 8;
   }//for
-
-  *encodedSize = index + 1;// sizeof(unsigned char);
+  //cout << pos << endl;
+  encodedMessage[index + 1] = pos;
+  *encodedSize = index + 2;// sizeof(unsigned char);
 }  // encode()

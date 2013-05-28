@@ -232,7 +232,7 @@ class LeftistHeap
             length[t->element] = size;
             for(int i = 0; i < 8; i++)
             {
-              codes[t->element][0] = (mask >> i);
+              codes[t->element][i] = (mask >> i);
             }//for
           }//if
           else

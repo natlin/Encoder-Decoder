@@ -23,36 +23,40 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   TreeNode *root = new TreeNode;
   TreeNode *position = root;
   unsigned char tempcode, getBit;
-  unsigned char mask = 1 << 7;
+  //unsigned char mask = 1 << 7;
+  //int mask = 0x80;
   char str[100] = {'\0'};
   int length = 0;
   int done = 0;
   int index = 0;
-  //cout << (char) 67<< endl;
   for(int i = 0; i < 256; i++)
   {
     length = (int) encodedMessage[index];
     //cout << i << " " << length << " ";
-    index++;
+    //index++;
     //if( length == 0)
       //continue;
     //while(length > 0)
-    for(int k = 3; k >= 0; k--)
+    for(int k = 3; k > 0; k--)
     {
-      tempcode = encodedMessage[index + k];
-      for(int j = 6; j >= -1; j--)
+      //unsigned char mask = 1;
+      unsigned char mask = 1;
+      tempcode = (encodedMessage[index + k] /*>> 1*/);
+      for(int j = 0; j < 8; j++)
       {
         if(length <= 0)
         {
           unsigned char element = i;
           position->element = element;
-          //cout << position->element << " "<< str << endl;
+          cout << position->element << " "<< str << endl;
           position = root;
           str[0] = '\0';
           done = 1;
           break;
         }//if
-        getBit = (tempcode << j) & mask;
+        getBit = tempcode & mask;
+        mask <<= 1;
+        //tempcode <<= 1;
         if(getBit == 0)
         {
           if(position->left == NULL)
@@ -84,22 +88,26 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
         break;
       }
     }//while*/
-    index = index + 4;
+    index = index + 5;
   }//for(i)
   //LeftistHeap<int> heap;
   //heap.insert(1, root);
   //heap.printTree(codes, lengths);
-  TreeNode *ptr = root;
+  /*START HERE TreeNode *ptr = root;
   int count = 0;
-  for(; index < encodedSize; index++)
+  int pos = encodedMessage[encodedSize - 1];
+      //unsigned char mask = 1;
+  //cout << pos << endl;
+  unsigned int mask = 0x80;
+  for(int h = index; h < encodedSize - 2; h++)
   {
-    tempcode = encodedMessage[index];
+    tempcode = encodedMessage[h];
     for(int i = 6; i >= -1; i--)
     {
-      if(ptr->left == NULL || ptr->right == NULL)
+      if(ptr->left == NULL && ptr->right == NULL)
       {
           decodedMessage[count] = ptr->element;
-          cout << ptr->element;
+          //cout << ptr->element;
           count++;
           ptr = root;
           i++;
@@ -116,5 +124,5 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
     }//for
     //index++;
   }//while
-  //cout << decodedMessage << endl;
+  //cout << decodedMessage << endl;*/
 } // decode()
