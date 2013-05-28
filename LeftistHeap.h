@@ -120,14 +120,14 @@ class LeftistHeap
     }
 
 
-    void printTree( int codes[][8] , int length[256] ) const
+    void printTree( int codes[][8] , int length[256]/*, int array[256]*/ ) const
     {
         if( isEmpty( ) )
             cout << "Empty tree" << endl;
         else
         {
             //TreeNode *getter = root->node; 
-            printTree( root->node, 0/*getter->code*/, codes , length, 0);
+            printTree( root->node, 0/*getter->code, 0*/, codes , length, /*array,*/ 0);
         }//else
     }
 
@@ -222,31 +222,39 @@ class LeftistHeap
     }
 
 
-    void printTree( TreeNode *t, int mask/*char str[]*/, int codes[][8], int length[256],int size) const
+    void printTree( TreeNode *t, unsigned int mask/*char str[], unsigned int mask2*/, int codes[][8], int length[256], /*int array[],*/ int size) const
     {
         if(t)
         {
           if(!t->left && !t->right)
           {
-            //cout << t->element << "," << t->count << "," << mask << "," << size << endl;
+            //mask << size;
+            //int shift = 31 - size;
+            //cout << t->element << "," << t->count<< "," << mask << "," << size << endl;
             length[t->element] = size;
+            //array[t->element] |= mask2;
+            //cout << t->element;
             for(int i = 0; i < 8; i++)
             {
-              codes[t->element][i] = (mask >> i);
+              codes[t->element][i] |= (mask >> i);
+              //cout << " " << i << " " << codes[t->element][i];
             }//for
+            //cout << endl;
           }//if
           else
           {
             size++;
             //t->left->code = strcat(str, "0");
             //str[strlen(str) - 1] = '\0';
-            printTree(t->left, mask, codes, length, size);
+            printTree(t->left, mask, /*mask2,*/ codes, length, /*array,*/ size);
             //str[strlen(str) - 1] = '\0';
             //t->right->code = strcat(str, "1");
             //str[strlen(str) - 1] = '\0';
-            int masque = 0x80;
-            mask |= (masque << size);
-            printTree(t->right, mask, codes, length, size);
+            int masque = 1;
+            mask |= (masque << (32 - size));
+            //int masque2 = 0x80;
+            //mask2 |= (masque2 << size);
+            printTree(t->right, mask, /*mask2,*/ codes, length, /*array,*/ size);
             //str[strlen(str) - 1] = '\0';
             
           }//else

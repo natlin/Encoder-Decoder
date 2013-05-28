@@ -19,6 +19,7 @@ public:
   //void printTree(TreeNode *t);
 private:
   int codes[256][8];
+  int array[256];
   int length[256];
 };
 

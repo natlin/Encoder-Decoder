@@ -4,6 +4,7 @@
 #include "RandomTree.h"
 #include <iostream>
 #include <cstring>
+#include "LeftistHeap.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   unsigned char tempcode, getBit;
   //unsigned char mask = 1 << 7;
   //int mask = 0x80;
-  //char str[100] = {'\0'};
+  char str[100] = {'\0'};
   int length = 0;
   int done = 0;
   int index = 0;
@@ -37,10 +38,10 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
     //if( length == 0)
       //continue;
     //while(length > 0)
-    for(int k = 3; k > 0; k--)
+    for(int k = 1; k < 4; k++)
     {
       //unsigned char mask = 1;
-      unsigned char mask = 1;
+      unsigned char mask = 1 << 7;
       tempcode = (encodedMessage[index + k] /*>> 1*/);
       for(int j = 0; j < 8; j++)
       {
@@ -50,12 +51,12 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
           position->element = element;
           //cout << position->element << " "<< str << endl;
           position = root;
-          //str[0] = '\0';
+          str[0] = '\0';
           done = 1;
           break;
         }//if
         getBit = tempcode & mask;
-        mask <<= 1;
+        mask >>= 1;
         //tempcode <<= 1;
         if(getBit == 0)
         {
@@ -65,7 +66,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
             newNode->parent = position;
             position->left = newNode;
           }
-          //strcat(str, "0");
+          strcat(str, "0");
           position = position->left;
         }//if
         else
@@ -76,7 +77,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
             newNode->parent = position;
             position->right = newNode;
           }
-          //strcat(str, "1");
+          strcat(str, "1");
           position = position->right;
         }//else
         length--;
@@ -95,25 +96,32 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   //heap.printTree(codes, lengths);
   TreeNode *ptr = root;
   int count = 0;
-  //int pos = encodedMessage[encodedSize - 1];
+  done = 0;
+  int pos = encodedMessage[encodedSize - 1];
       //unsigned char mask = 1;
   //cout << pos << endl;
   //unsigned int mask = 0x80;
-  cout << index << endl;
-  for(int h = index; h < encodedSize - 2; h++)
+  //cout << index << endl;
+  for(int h = 1280; h < encodedSize - 1; h++)
   {
-    unsigned char mask = 1;
+    unsigned char mask = 1 << 7;
     tempcode = encodedMessage[h];
     for(int i = 0; i < 8; i++)
     {
       getBit = tempcode & mask;
-      mask <<= 1;
+      mask >>= 1;
+      //mask <<= 1;
       if(ptr->left == NULL && ptr->right == NULL)
       {
           decodedMessage[count] = ptr->element;
           //cout << ptr->element;
           count++;
           ptr = root;
+          if(h == encodedSize - 2 && (pos == i || pos == i - 1 || pos == i + 1))
+          {
+            done = 1;
+            break;
+          }//if
           //i--;
       }//if
       if(getBit == 0)
@@ -126,6 +134,8 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
       }//else
     }//for
     //index++;
+    if(done)
+      break;
   }//while
-  //cout << decodedMessage << endl;
+  cout << decodedMessage << endl;
 } // decode()
