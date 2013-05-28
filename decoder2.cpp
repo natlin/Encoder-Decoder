@@ -1,4 +1,4 @@
-//Authors Nathan Lin, Fnu Vijay Kumar
+//  Author: Sean Davis
 
 #include "decoder.h"
 #include "RandomTree.h"
@@ -95,27 +95,24 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   //heap.printTree(codes, lengths);
   TreeNode *ptr = root;
   int count = 0;
-  //int pos = encodedMessage[encodedSize - 1];
+  int pos = encodedMessage[encodedSize - 1];
       //unsigned char mask = 1;
   //cout << pos << endl;
-  //unsigned int mask = 0x80;
-  cout << index << endl;
+  unsigned int mask = 0x80;
   for(int h = index; h < encodedSize - 2; h++)
   {
-    unsigned char mask = 1;
     tempcode = encodedMessage[h];
     for(int i = 0; i < 8; i++)
     {
-      getBit = tempcode & mask;
-      mask <<= 1;
       if(ptr->left == NULL && ptr->right == NULL)
       {
           decodedMessage[count] = ptr->element;
           //cout << ptr->element;
           count++;
           ptr = root;
-          //i--;
+          i--;
       }//if
+      getBit = (tempcode << i) & mask;
       if(getBit == 0)
       {
         ptr = ptr->left;

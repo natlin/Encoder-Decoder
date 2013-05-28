@@ -1,4 +1,4 @@
-//  Authors Nathan Lin, Vijay Kumar
+//  Authors Nathan Lin, Fnu Vijay Kumar
 
 #include "encoder.h"
 //#include "SplayTree.h"

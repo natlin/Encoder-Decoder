@@ -1,4 +1,4 @@
-// Authors Nathan Lin, Vijay Kumar
+// Authors Nathan Lin, Fnu Vijay Kumar
 #ifndef ENCODER_H
 #define	ENCODER_H
 
