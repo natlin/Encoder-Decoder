@@ -230,7 +230,7 @@ class LeftistHeap
           {
             //mask << size;
             //int shift = 31 - size;
-            //cout << t->element << "," << t->count<< "," << mask << "," << size << endl;
+            //cout << t->element <<"," << mask << "," << size << endl;
             length[t->element] = size;
             //array[t->element] |= mask2;
             //cout << t->element;

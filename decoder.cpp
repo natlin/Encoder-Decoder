@@ -63,7 +63,8 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
           if(position->left == NULL)
           {
             TreeNode *newNode = new TreeNode;
-            newNode->parent = position;
+            //newNode->parent = position;
+            //newNode->element = 30;
             position->left = newNode;
           }
           strcat(str, "0");
@@ -74,7 +75,8 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
           if(position->right == NULL)
           {
             TreeNode *newNode = new TreeNode;
-            newNode->parent = position;
+            //newNode->parent = position;
+            //newNode->element = 30;
             position->right = newNode;
           }
           strcat(str, "1");
@@ -137,5 +139,5 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
     if(done)
       break;
   }//while
-  cout << decodedMessage << endl;
+  //cout << decodedMessage << endl;
 } // decode()
