@@ -1,9 +1,9 @@
-//Authors Fnu Vijay Kumar
+//Authors Nathan Lin, Fnu Vijay Kumar
 
 #include "decoder.h"
 #include "RandomTree.h"
-#include <iostream>
-#include <cstring>
+//#include <iostream>
+//#include <cstring>
 #include "LeftistHeap.h"
 
 using namespace std;

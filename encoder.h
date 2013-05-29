@@ -2,7 +2,7 @@
 #ifndef ENCODER_H
 #define	ENCODER_H
 
-#include "QuadraticProbing.h"
+//#include "QuadraticProbing.h"
 //#include "BinaryHeap.h"
 //#include <utility>
 //#include "BinaryTree.h"

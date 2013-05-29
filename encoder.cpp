@@ -2,8 +2,8 @@
 
 #include "encoder.h"
 //#include "SplayTree.h"
-#include <iostream>
-#include <cstring>
+//#include <iostream>
+//#include <cstring>
 
 Encoder::Encoder()
 {
@@ -30,11 +30,15 @@ void Encoder::encode(const unsigned char *message, const int size,
     int *encodedSize)
 {
   //HuffmanTree <unsigned char> tree(-1);
-  QuadraticHashTable<unsigned char> hashTable(-1, 256);
+  //QuadraticHashTable<unsigned char> hashTable(-1, 256);
+  for(int i = 0; i < 256; i++)
+  {
+    array[i] = 0;
+  }//for
   for(int i = 0; i < size; i++)
   {
-    hashTable.insert(message[i]);
-    //array[message[i]]++;
+    //hashTable.insert(message[i]);
+    array[message[i]]++;
     
     //tree.insert(message[i]);
   }//for
@@ -42,7 +46,7 @@ void Encoder::encode(const unsigned char *message, const int size,
   LeftistHeap<int> heap;
   for(int i = 0; i < 256; i++)
   {
-    if(hashTable.array[i].info == ACTIVE)
+    if(array[i])
     {
       //std::cout << hashTable.array[i].element << ","
         //<< hashTable.array[i].count<< endl;
@@ -50,10 +54,10 @@ void Encoder::encode(const unsigned char *message, const int size,
         //hashTable.array[i].element);
       //heap.insert(p1);
       TreeNode *newNode = new TreeNode;
-      newNode->element = hashTable.array[i].element;
-      newNode->count = hashTable.array[i].count;
-      newNode->parent = newNode->left = newNode->right = NULL;
-      heap.insert(hashTable.array[i].count, newNode);
+      newNode->element = i;
+      newNode->count = array[i];
+      newNode->left = newNode->right = NULL;
+      heap.insert(array[i], newNode);
     }//if
   }//for
   //int test = 0;
@@ -79,7 +83,7 @@ void Encoder::encode(const unsigned char *message, const int size,
 
     root->left = n1;
     root->right = n2;
-    n1->parent = n2->parent = root;
+    //n1->parent = n2->parent = root;
     root->count = n1->count + n2->count;
     //root->element = 'N';
 

@@ -52,8 +52,8 @@ class LeftistHeap
 
     TreeNode* & findMin() const
     {
-        if(isEmpty() )
-            throw Underflow( );
+        //if(isEmpty() )
+            //throw Underflow( );
         return root -> node;
     }
 
@@ -69,8 +69,8 @@ class LeftistHeap
      */
     void deleteMin( )
     {
-        if( isEmpty( ) )
-            throw Underflow( );
+        //if( isEmpty( ) )
+            //throw Underflow( );
 
         LeftistNode *oldRoot = root;
         root = merge( root->left, root->right );
@@ -122,13 +122,13 @@ class LeftistHeap
 
     void printTree( unsigned int codes[][8] , int length[256]/*, int array[256]*/ ) const
     {
-        if( isEmpty( ) )
-            cout << "Empty tree" << endl;
-        else
-        {
+        //if( isEmpty( ) )
+            //cout << "Empty tree" << endl;
+        //else
+        //{
             //TreeNode *getter = root->node; 
             printTree( root->node, 0/*getter->code, 0*/, codes , length, /*array,*/ 0);
-        }//else
+        //}//else
     }
 
 

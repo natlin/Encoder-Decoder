@@ -12,8 +12,8 @@ public:
   void decode(const unsigned char* encodedMessage, const int encodedSize, 
     unsigned char* decodedMessage, int *decodedSize);
 private:
-  int codes[256][8];
-  int lengths[256];
+  //int codes[256][8];
+  //int lengths[256];
 
 };
 
