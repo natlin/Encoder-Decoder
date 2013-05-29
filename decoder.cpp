@@ -1,4 +1,4 @@
-//Authors Nathan Lin, Fnu Vijay Kumar
+//Authors Fnu Vijay Kumar
 
 #include "decoder.h"
 #include "RandomTree.h"
@@ -18,7 +18,7 @@ Decoder::~Decoder()
 } // ~Decoder()
 
 
-void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize, 
+void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   unsigned char* decodedMessage, int *decodedSize)
 {
   TreeNode *root = new TreeNode;
@@ -26,7 +26,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   unsigned char tempcode, getBit;
   //unsigned char mask = 1 << 7;
   //int mask = 0x80;
-  char str[100] = {'\0'};
+  //char str[100] = {'\0'};
   int length = 0;
   int done = 0;
   int index = 0;
@@ -51,7 +51,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
           position->element = element;
           //cout << position->element << " "<< str << endl;
           position = root;
-          str[0] = '\0';
+          //str[0] = '\0';
           done = 1;
           break;
         }//if
@@ -67,7 +67,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
             //newNode->element = 30;
             position->left = newNode;
           }
-          strcat(str, "0");
+          //strcat(str, "0");
           position = position->left;
         }//if
         else
@@ -79,7 +79,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
             //newNode->element = 30;
             position->right = newNode;
           }
-          strcat(str, "1");
+          //strcat(str, "1");
           position = position->right;
         }//else
         length--;
@@ -106,6 +106,8 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
   //cout << index << endl;
   for(int h = 1280; h < encodedSize - 1; h++)
   {
+    //if(count == 157)
+      //cout << "Help!" << endl;
     unsigned char mask = 1 << 7;
     tempcode = encodedMessage[h];
     for(int i = 0; i < 8; i++)
@@ -139,5 +141,7 @@ void Decoder::decode(const unsigned char* encodedMessage, const int encodedSize,
     if(done)
       break;
   }//while
+
+  *decodedSize = count;
   //cout << decodedMessage << endl;
 } // decode()

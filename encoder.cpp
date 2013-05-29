@@ -2,7 +2,7 @@
 
 #include "encoder.h"
 //#include "SplayTree.h"
-#include "iostream"
+#include <iostream>
 #include <cstring>
 
 Encoder::Encoder()
@@ -34,6 +34,8 @@ void Encoder::encode(const unsigned char *message, const int size,
   for(int i = 0; i < size; i++)
   {
     hashTable.insert(message[i]);
+    //array[message[i]]++;
+    
     //tree.insert(message[i]);
   }//for
   //BinaryHeap < pair < int, unsigned char> > heap(256);
@@ -79,7 +81,7 @@ void Encoder::encode(const unsigned char *message, const int size,
     root->right = n2;
     n1->parent = n2->parent = root;
     root->count = n1->count + n2->count;
-    root->element = 'N';
+    //root->element = 'N';
 
     if(heap.isEmpty())
     {
@@ -116,6 +118,7 @@ void Encoder::encode(const unsigned char *message, const int size,
   }//while
   heap.printTree(codes, length/*, array*/);
   //tree.printTree();
+  //}//if
   int index = 0;
   int pos = 0;
 
